@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRYSM — WebGPU Path Tracer</title>
+  <meta name="description" content="CRYSM — WebGPU tabanlı, 30 FPS kilitli offline path tracing render motoru." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0c10'/%3E%3Cpath d='M32 12 54 50H10z' fill='none' stroke='%23ffb066' stroke-width='3.4'/%3E%3Cpath d='M32 12v38' stroke='%23ffb066' stroke-width='2' opacity='.55'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <canvas id="gpu"></canvas>
+  <div class="screen-shade"></div>
+
+  <div id="ui">
+    <header id="brand">
+      <div class="mark">
+        <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+          <path d="M20 5 38 34H2z" stroke="currentColor" stroke-width="2.1" />
+          <path d="M20 5v29" stroke="currentColor" stroke-width="1.2" opacity=".45" />
+          <path d="M11 22h18" stroke="currentColor" stroke-width="1.2" opacity=".3" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>CRYSM</h1>
+        <p>WEBGPU PATH TRACER <span class="dot">·</span> 30 FPS LOCK</p>
+      </div>
+      <div class="badge-live"><i></i>LIVE</div>
+    </header>
+
+    <section id="stats">
+      <div class="stat big">
+        <span class="label">FRAME RATE</span>
+        <div class="row"><strong id="fps">—</strong><span class="unit">FPS</span><em id="fpsState" class="pill">LOCK</em></div>
+      </div>
+      <div class="stat">
+        <span class="label">SAMPLES</span>
+        <div class="row"><strong id="samples">0</strong><span class="unit">spp</span></div>
+      </div>
+      <div class="stat">
+        <span class="label">RENDER</span>
+        <div class="row"><strong id="res">—</strong></div>
+      </div>
+      <div class="stat">
+        <span class="label">FRAME</span>
+        <div class="row"><strong id="ms">—</strong><span class="unit">ms</span></div>
+      </div>
+      <div class="stat wide">
+        <span class="label">GPU</span>
+        <div class="row"><strong id="gpuName" class="small">—</strong></div>
+      </div>
+    </section>
+
+    <aside id="panel">
+      <div class="panel-head">
+        <div>
+          <h2>RENDER SETTINGS</h2>
+          <p id="sceneInfo">—</p>
+        </div>
+        <button id="panelToggle" title="Paneli kapat">−</button>
+      </div>
+      <div id="panelBody" class="panel-body"></div>
+      <div class="features">
+        <h3>PIPELINE</h3>
+        <ul id="featureList"></ul>
+      </div>
+      <div class="panel-foot">
+        <button id="btnShot" class="btn">FRAME KAYDET</button>
+        <button id="btnReset" class="btn ghost">SIFIRLA</button>
+      </div>
+    </aside>
+
+    <div id="hint">
+      <span><b>SÜRÜKLE</b> yörünge</span>
+      <span><b>TEKERLEK</b> zoom</span>
+      <span><b>SAĞ SÜRÜKLE</b> kaydır</span>
+      <span><b>H</b> arayüz</span>
+      <span><b>R</b> sıfırla</span>
+    </div>
+
+    <div id="toast"></div>
+  </div>
+
+  <div id="boot">
+    <div class="boot-mark">
+      <svg viewBox="0 0 80 80" width="64" height="64" fill="none">
+        <path d="M40 8 74 66H6z" stroke="currentColor" stroke-width="2.4" />
+        <path d="M40 8v58" stroke="currentColor" stroke-width="1.2" opacity=".4" />
+      </svg>
+    </div>
+    <h1>CRYSM</h1>
+    <p class="boot-sub">WEBGPU PATH TRACER</p>
+    <div class="boot-bar"><i></i></div>
+    <p class="boot-status" id="bootStatus">WebGPU başlatılıyor…</p>
+  </div>
+
+  <div id="fatal" class="hidden">
+    <div class="fatal-card">
+      <h2 id="fatalTitle">WebGPU başlatılamadı</h2>
+      <p id="fatalMsg"></p>
+      <div class="fatal-hint">
+        <b>İpucu</b>
+        <span>Chrome / Edge 113+ veya Safari 18+ kullan. Linux'ta <code>chrome://flags/#enable-unsafe-webgpu</code>, Windows'ta güncel GPU sürücüsü gerekir.</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

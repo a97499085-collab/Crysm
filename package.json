@@ -1,0 +1,10 @@
+{
+  "name": "crysm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CRYSM — WebGPU offline path tracer (30 FPS locked)",
+  "scripts": {
+    "serve": "python -m http.server 5173 --bind 127.0.0.1"
+  }
+}
